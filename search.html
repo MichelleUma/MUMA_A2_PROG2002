@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+    <title>Search</title>
+
+    <head>
+
+        <body>
+<!--            
+          Page navigation menu -->
+                <div class="topnav">
+               <img src="logo-cropped.png" alt="logo" width="150" height="52.5">
+               <a href="/home"><span>Home</span> 
+               <a href="/search"><span>Search Fundraiser</span></a>
+               <a href="/fundraiser"><span>Fundraiser</span></a>
+         
+                </div>
+
+              
+                
+                <center>
+
+                <!-- Search form displaying criteria : organiser, city and category name. -->
+                <h2>Search Fundraiser</h2>
+                <br></cbr>
+<form id="form" onsubmit="validateForm()" value="Validate Form">
+            
+                 <label for="ORGANISER">Organiser :</label>
+                 <input type="text" name="organiser"   id="organiser" placeholder="Enter Organiser's Name" >
+                    
+                 <label for="CITY">City :</label>
+                 <input type="text" name="city" id="city" placeholder="Enter City Name"> 
+                
+                 <label for="CATEGORY_NAME">Category Name: </label>
+                 <input type="text" name="categiry"  id="category" placeholder="Enter Category" >
+
+                               
+                <input type="submit"value= "Search" onclick="validateForm()"  value="Serach Critera">
+                 <input type="submit"value2= "Clear" onclick="clearCheckboxes()"  value="Clear Checkboxes">
+
+               </form>
+
+                      <!-- <div id="data"></div> --> <br></br>
+
+                      <h2> Result:</h2>
+                      <ul id="results"></ul>
+
+                </center>
+                       
+<script>
+
+//clear form
+  function clearCheckboxes(){
+
+    document.getElementById("form").reset();
+    
+  }
+
+//retrieves alert if no data is put into the search form
+
+function validateForm(){
+
+var organiser = document.getElementById("organiser");
+
+var city = document.getElementById("city");
+
+var category = document.getElementById("category");
+
+
+
+
+}
+  
+
+ //search critera function
+function searchByCriteria(){
+document.getElementById("form");
+    
+const organiser =document.getElementById('organiser').value;
+const city =  document.getElementById('city').value;{
+const category = document.getElementById ('category').value;
+
+const query = new criteria({
+                organiser,
+                 city,
+                category
+
+  });
+  
+  //retrieve fundraiser API +Criteria
+  fetch("http://localhost:3060/api/fundraiser/"+criteria)
+  .then(response => response.json())
+              .then(form => {
+           
+                const form=document.getElementById('form');
+                form.innerHTML="";
+ //if length is greater than 0, retrieve criteria data from the form
+                if(form.length>0){
+                  form.forEach( criteria => {
+                      const form=document.createElement("form");
+                      form.textContent=`Organiser Name: ${fundraiser.ORGANISER},City Name: ${fundraiser.CITY},Category Name: ${category.CATEGORY_NAME}`;
+
+                      form.appendChild(form);
+                  });
+                }
+
+                //if data unable print error messgae  "no fundraiser as such"
+                else{  
+                  form.textContent="No fundraiser as such!";
+                }
+              })
+              //print error messsage is fetch is unsuccessful
+              .catch(error=>{
+                console.error("Error fecthing data",error);
+                document.getElementById('form').textContent="Failed to load data";
+              });
+}
+  }
+
+
+</script>
+
+</center>
+        <style>
+
+        /*background colour  */
+body {
+
+  background-color: #a2aec3;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Nav Menu */
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 18px 12px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: #9599c7;
+}
+
+.topnav a.active {
+  background-color: #4b5b81;
+  color: white;
+}
+
+/* form text input search criteria */
+
+input[type=text], select {
+  width: 80%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: block;
+  border: 1px solid #d8cdcd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* form submit search button */
+input[type=submit] {
+  width: 80%;
+  background-color: #728087;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+/* produce a differnt colour when hovered upon */
+input[type=submit]:hover {
+  background-color: #746980;
+}
+
+div.container {
+  border-radius: 20px;
+   background-color: #afaec6; 
+  padding: 40px;
+}
+        </style>
+
+        </body>
+
+    </head>
+</html>
