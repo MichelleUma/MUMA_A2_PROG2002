@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <title>Home Page</title>
+
+    <head>
+
+        <body>
+          <!--            
+          Page navigation menu -->
+          
+                <div class="topnav">
+               <img src="logo-cropped.png" alt="logo" width="150" height="52.5">
+               <a href="/home"><span>Home</span> 
+               <a href="/search"><span>Search Fundraiser</span></a>
+               <a href="/fundraiser"><span>Fundraiser</span></a>
+               
+                </div>
+<!--  -->
+            
+                <div style="padding-left:16px">
+                    <h2>Welcome to the Helping Hand Foundation!</h2>
+                    <img src="home.jpg" alt="people holding hands" width="700" height="500">
+                    <h2>About Us</h2>
+                    <p>Helping hand foundation is a crowdfunding organisation that aspires to tell the stories of all thise around the world that need help. We focus
+                      on making all voices heard and seen. In these trying times, many of us need help and need a platform to reach out on. 
+                      Our organisation hopes to connect the world and spread the message of love and kidness through donations.
+                    </p>
+                  </div>
+
+                  <h2>Active Fundraisers</h2>
+
+                  <div id="data"></div>
+                  <div id="data"></div>
+                  
+              
+                  <script>
+
+  //retrieve fundraiser API 
+fetch("http://localhost:3060/api/fundraiser")
+                .then(response => response.json())
+                .then(data => {
+
+                  document.getElementById('data').textConent = "Got the data";
+                
+                                 
+                  const dataDiv=document.getElementById('data');
+                  dataDiv.innerHTML="";
+      //if data length is greater than 0 create element that prints all records of the fundraiser and catergory table joined
+                  if(data.length>0){
+                    data.forEach( fundraiser => {
+                        const newP=document.createElement("p");
+                        newP.textContent=` Fundraiser ID: ${fundraiser.FUNDRAISER_ID}, Organiser: ${fundraiser.ORGANISER}, Caption: ${fundraiser.CAPTION}, Target Funding: ${fundraiser.TARGET_FUNDING},Current Funding: ${fundraiser.CURRENT_FUNDING}, City: ${fundraiser.CITY}, Active: ${fundraiser.ACTIVE}, Category: ${fundraiser.CATEGORY_NAME}`;
+      
+                        dataDiv.appendChild(newP);
+                    });
+      
+                  }
+                  else{
+                    dataDiv.textContent="No fundraiser data";  //if length is less than of equal to 0, print no fundraiser data
+                  }})
+
+                            
+            </script>
+
+
+ <style>
+
+body {
+  /*background colour  */
+
+  background-color: #a2aec3;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+/* Nav Menu */
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 18px 12px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: #9599c7;
+}
+
+.topnav a.active {
+  background-color: #4b5b81;
+  color: white;
+}
+
+        </style>
+
+        </body>
+    </head>
+</html>

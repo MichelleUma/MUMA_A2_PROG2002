@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <title>Fundraisers</title>
+
+    <head>
+
+        <body>
+          <!--            
+          Page navigation menu -->
+                <div class="topnav">
+               <img src="logo-cropped.png" alt="logo" width="150" height="52.5">
+               <a href="/home"><span>Home</span> 
+               <a href="/search"><span>Search Fundraiser</span></a>
+               <a href="/fundraiser"><span>Fundraiser</span></a>
+               
+                </div>
+            
+                <center>
+           <h1>Fundraiser</h1>
+
+            <!-- <h4>Fundraiser ID:</h4>
+            <h4>Organiser: </h4>
+            <h4>Caption: </h4>
+            <h4>Target funding: </h4>
+            <h4>Current funding: </h4>
+            <h4>City: </h4>
+            <h4>Status: </h4>
+            <h4>Category: </h4> -->
+        
+             <div id="data"></div>
+
+   <script>
+  
+  function retrieveFundraiser(id){
+    //call GET API to get a list all data of a fundraiser by ID
+             fetch("http://localhost:3060/api/fundraiser/"+id)
+              .then(response => response.json())
+              .then(data => {
+               
+                const dataDiv=document.getElementById('data');
+                dataDiv.innerHTML="";
+
+                 //if length is greater than 0, retrieve criteria data from the form
+                if(data.length>0){
+                  data.forEach( concert => {
+                      const newP=document.createElement("p");
+                      newP.textContent=` Fundraiser ID: ${fundraiser.FUNDRAISER_ID}, Organiser: ${fundraiser.ORGANISER}, Caption: ${fundraiser.CAPTION}, Target Funding: ${fundraiser.TARGET_FUNDING},Current Funding: ${fundraiser.CURRENT_FUNDING}, City: ${fundraiser.CITY}, Active: ${fundraiser.ACTIVE}, Category: ${fundraiser.CATEGORY_NAME}`;
+
+                      dataDiv.appendChild(newP);
+                  });
+                }
+                
+                //if data unable print error messgae  "no fundraiser data"
+                else{  
+                  dataDiv.textContent="No fundraiser data";
+                }
+              }) 
+              //print error messsage is fetch is unsuccessful
+              .catch(error=>{
+                console.error("Error fecthing data",error);
+                document.getElementById('data').textContent="Failed to load data";
+              });
+            }
+                  
+        </script>
+
+      </center>
+                  <style>      
+                  
+                           
+             
+
+body {
+ /*background colour  */
+  background-color: #a2aec3;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Nav Menu */
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 18px 12px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: #9599c7;
+}
+
+.topnav a.active {
+  background-color: #4b5b81;
+  color: white;
+}
+
+  </style>
+
+        </body>
+    </head>
+</html>
